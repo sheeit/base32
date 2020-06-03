@@ -1,8 +1,5 @@
-#include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
-
-typedef unsigned char uint8_t;
 
 static char *encode_file(FILE *f);
 static char *extend(char *base32, size_t size);
@@ -102,7 +99,6 @@ static char b32_char(unsigned char c) {
 static void encode_chunk(const char *in, char *out, unsigned char inbytes)
 {
 	size_t o = 0;
-	assert(inbytes > 0);
 
 	/* 1111 1000 >> 3                  */
 	out[o++] = b32_char((0xf8 & in[0]) >> 3);
@@ -132,8 +128,8 @@ static void encode_chunk(const char *in, char *out, unsigned char inbytes)
 	);
 	if (inbytes == 4)
 		goto pad;
-	out[o++] = b32_char((0x1f & in[4]));                            /* 0001 1111                       */
-	/*t[o-1] = '|*/
+	/* 0001 1111                       */
+	out[o++] = b32_char((0x1f & in[4]));
 
 pad:
 	while (o < 8)
