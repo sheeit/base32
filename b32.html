@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<HTML lang="en">
+<TITLE>Base 256 to base 32</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<STYLE type="text/css">
+	p {
+		font-family: 'Fira Code Retina', 'Fira Code', monospace;
+		font-size:   48pt;
+	}
+	p SPAN.red     { color: Hotpink;   }
+	p SPAN.blue    { color: RoyalBlue; }
+	p SPAN.green   { color: Green;     }
+	p SPAN.orange  { color: Orange;    }
+	p SPAN.cyan    { color: DarkCyan;  }
+	p SPAN.magenta { color: Fuchsia;   }
+	p SPAN.yellow  { color: Gold;      }
+</STYLE>
+<SCRIPT type="text/javascript">
+function f(e) {
+	var div     = document.getElementsByTagName('DIV')[0];
+	var base    = document.createElement('P');
+	var content = '';
+	var colors  = [ 'red', 'blue', 'green', 'orange', 'cyan', 'magenta', 'yellow' ];
+	/*
+	for (var i = 0; i < 5; ++i) {
+		var span         = document.createElement('SPAN');
+		span.className   = colors[i % colors.length];
+		span.textContent = content.substring(0, 8);
+		base.appendChild(span);
+	}
+	*/
+	var i;
+	for (i = 0; i < 8; ++i) {
+		content += i.toString();
+	}
+	function coloredLine(n, l) {
+		var i;
+		var c_index;
+		var c;
+		var span;
+		var remaining;
+		for (i = 0, c_index = 0; i < n; ++i) {
+			span           = document.createElement('SPAN');
+			span.className = colors[i % colors.length];
+			c              = content.substring(c_index, c_index + l);
+			if (c.length < l) {
+				remaining = l - c.length;
+				c        += content.substring(0, remaining);
+			}
+			c_index          = (c_index + l) % content.length;
+			span.textContent = c;
+			base.appendChild(span);
+		}
+		base.appendChild(document.createElement('BR'));
+	}
+	coloredLine(5, 8);
+	coloredLine(8, 5);
+	coloredLine(3, 8);
+	coloredLine(4, 6);
+	coloredLine(1, 8);
+	coloredLine(2, 4);
+	coloredLine(3, 8);
+	coloredLine(8, 3);
+	coloredLine(1, 8);
+	coloredLine(4, 2);
+	coloredLine(1, 8);
+	coloredLine(8, 1);
+	coloredLine(5, 8);
+	coloredLine(4, 10);
+	div.appendChild(base);
+}
+window.addEventListener('load', f);
+</SCRIPT>
+<DIV>
