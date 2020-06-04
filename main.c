@@ -109,7 +109,7 @@ static void encode_chunk(const char *in, char *out, unsigned char inbytes)
 		goto pad;
 	/* 0011 1110 >> 1                  */
 	out[o++] = b32_char((0x3e & in[1]) >> 1);
-	/* 1111 0000 >> 4 | 0000 0001 << 5 */
+	/* 1111 0000 >> 4 | 0000 0001 << 4 */
 	out[o++] = b32_char((inbytes > 2 ? (0xf0 & in[2]) >> 4 : 0)
 			| (0x01 & in[1]) << 4);
 	if (inbytes == 2)
